@@ -7,13 +7,10 @@ It ensures controlled access, token validation, and rate-limiting for OpenAI API
 
 ## Table of Contents
 
-- [Overview](#-overview)
-- [Key Components](#-key-components)
-- [JWT Authentication Flow](#-jwt-authentication-flow)
-- [Security Highlights](#-security-highlights)
-- [Tools Used](#-tools-used)
-- [Use Cases](#-use-cases)
-- [Cleanup](#-cleanup)
+- [Overview]
+- [Key Components]
+- [JWT Authentication Flow]
+- [Security Highlights]
 
 ---
 
