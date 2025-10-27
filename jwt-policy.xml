@@ -1,0 +1,32 @@
+<policies>
+    <inbound>
+        <base />
+        <set-backend-service id="apim-generated-policy" backend-id="openai-endpoint" />
+        <choose>
+            <when condition="@(context.Subscription.Id == "/subscription/vendor-1")">
+                <llm-token-limit counter-key="@(context.Subscription.Id)" tokens-per-minute="90000" estimate-prompt-tokens="false" remaining-tokens-header-name="x-tokens-remaining" tokens-consumed-header-name="x-tokens-consumed" retry-after-header-name="retry-after" />
+            </when>
+            <otherwise>
+                <llm-token-limit counter-key="@(context.Subscription.Id)" tokens-per-minute="60000" estimate-prompt-tokens="false" remaining-tokens-header-name="x-tokens-remaining" tokens-consumed-header-name="x-tokens-consumed" retry-after-header-name="retry-after" />
+            </otherwise>
+        </choose>
+        <validate-jwt header-name="Authorization" failed-validation-httpcode="401" require-scheme="Bearer">
+            <openid-config url="https://login.microsoftonline.com/{tenant-id}/v2.0/.well-known/openid-configuration" />
+            <audiences>
+                <audience>api://{application-id}</audience>
+            </audiences>
+            <issuers>
+                <issuer>https://sts.windows.net/{tenant-id}/</issuer>
+            </issuers>
+        </validate-jwt>
+    </inbound>
+    <backend>
+        <base />
+    </backend>
+    <outbound>
+        <base />
+    </outbound>
+    <on-error>
+        <base />
+    </on-error>
+</policies>
